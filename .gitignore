@@ -1,0 +1,38 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.user
+*.suo
+*.cache
+*.log
+
+# .NET
+**/bin/
+**/obj/
+
+# Node / Vite
+**/node_modules/
+frontend/dist/
+
+# Local secrets / overrides
+**/appsettings.Local.json
+**/appsettings.Development.json
+**/.env
+**/.env.*
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Local secrets / data
+backend/BusinessIntelligence.Api/appsettings.Development.json
+backend/BusinessIntelligence.Api/data/
+
+
