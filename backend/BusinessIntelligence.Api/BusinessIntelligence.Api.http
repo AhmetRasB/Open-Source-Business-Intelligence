@@ -1,0 +1,6 @@
+@BusinessIntelligence.Api_HostAddress = http://localhost:5208
+
+GET {{BusinessIntelligence.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
