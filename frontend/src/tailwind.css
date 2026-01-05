@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+/* Tailwind v4: enable class-based dark mode (used by ThemeProvider) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Tailwind v4: tell the engine where to scan for class names */
+@source "../index.html";
+@source "./**/*.{ts,tsx}";
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: #ffffff;
+  color: #18181b;
+}
+
+html.dark body {
+  background: #09090b;
+  color: #fafafa;
+}
+
+
