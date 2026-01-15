@@ -5,6 +5,8 @@ Thumbs.db
 *.suo
 *.cache
 *.log
+.idea/
+.vscode/
 
 # .NET
 **/bin/
@@ -19,6 +21,9 @@ frontend/dist/
 **/appsettings.Development.json
 **/.env
 **/.env.*
+
+# Accidental / scratch files
+__noop__
 
 # .NET
 bin/
