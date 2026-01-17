@@ -22,21 +22,19 @@ dotnet run --launch-profile http
 
 Backend dev URL (default): `http://localhost:5208`
 
-### AI (Groq)
+### Optional: insights assistant
 
-The app proxies AI requests through the backend endpoint:
+The app can proxy chat-like insights through the backend endpoint:
 
 - `POST /api/ai/chat`
 
-Set your Groq API key as an environment variable **(do not hardcode / do not commit)**:
+Set your API key as an environment variable **(do not hardcode / do not commit)**:
 
 ```powershell
 $env:GROQ_API_KEY="YOUR_KEY_HERE"
 ```
 
-Optional:
-
-- `Groq:Model` (default is `openai/gpt-oss-120b`)
+Optional: configure `Groq:Model` in `appsettings.Development.json`.
 
 ### Frontend
 
@@ -71,10 +69,10 @@ Frontend proxies API calls via Vite:
 - Run a query via backend endpoint:
   - **SELECT-only** is allowed (guarded on server)
 
-### AI Insights
+### Insights
 
 - Route: `/ai`
-- Type `@` to mention tables (suggested from selected connection) — mentions render **green** in chat.
+- Type `@` to mention tables.
 - Ctrl+Enter to send.
 
 ## Notes / Security

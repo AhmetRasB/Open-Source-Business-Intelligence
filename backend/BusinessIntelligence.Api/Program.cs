@@ -21,7 +21,6 @@ builder.Services.ConfigureHttpJsonOptions(o =>
     o.SerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
 });
 
-// Auth (JWT)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(o =>
     {
@@ -44,7 +43,6 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("dev", p =>
     {
-        // Vite dev server (default)
         p.WithOrigins(
                 "http://localhost:5173",
                 "http://localhost:5174",
@@ -83,14 +81,12 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Auto-apply migrations (dev convenience)
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<BiConfigDbContext>();
     db.Database.Migrate();
 }
 
-// We rely on http://localhost:5208 for local dev; keep HTTPS available but don't force redirects.
 // app.UseHttpsRedirection();
 
 var api = app.MapGroup("/api").WithOpenApi();
@@ -102,9 +98,6 @@ auth.MapPost("/register", async (RegisterRequest req, AuthService authService, O
     if (req.Password.Length < 8) return Results.BadRequest(new { message = "Password must be at least 8 characters." });
     var log = loggerFactory.CreateLogger("Auth");
 
-    // If user already exists:
-    // - verified => tell them to login
-    // - not verified => re-send verification code (nice UX)
     var existing = await authService.FindByEmailAsync(req.Email);
     if (existing is not null)
     {
@@ -119,8 +112,6 @@ auth.MapPost("/register", async (RegisterRequest req, AuthService authService, O
         }
         catch (Exception ex) when (env.IsDevelopment())
         {
-            // Mailtrap demo accounts often refuse sending to non-owner domains (403).
-            // In dev, unblock the flow by returning the code so you can continue testing.
             log.LogWarning(ex, "Email send failed during signup resend; returning devCode.");
             return Results.Ok(new { ok = true, resent = true, emailFailed = true, devCode = code });
         }

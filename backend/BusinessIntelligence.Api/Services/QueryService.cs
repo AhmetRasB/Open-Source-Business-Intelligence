@@ -52,7 +52,6 @@ public sealed class QueryService
 
     public async Task<ExecuteQueryResponse> ExecuteChartAsync(ConnectionDefinition def, ChartQueryRequest req)
     {
-        // chartType is currently informational; we only implement "bar" shape: dimension/value
         var agg = req.Aggregation?.Trim().ToUpperInvariant();
         var allowed = new HashSet<string> { "SUM", "COUNT", "AVG", "MIN", "MAX" };
         if (agg is null || !allowed.Contains(agg))
@@ -80,8 +79,6 @@ public sealed class QueryService
 
         int? limit = req.Limit is null ? null : Math.Clamp(req.Limit.Value, 1, 1000);
 
-        // Build select list:
-        // dimension + aggregated measures (aliases: original column name, or "value" for single measure)
         var selectAggs = new List<string>();
         for (var idx = 0; idx < measures.Count; idx++)
         {

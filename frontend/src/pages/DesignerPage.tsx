@@ -155,7 +155,6 @@ export function DesignerPage() {
     addWidget(type as any, xy.x, xy.y)
   }
 
-  // Cross-filter: whenever activeFilter changes, refresh widgets.
   const filterKey = useMemo(() => JSON.stringify(activeFilter ?? null), [activeFilter])
   useEffect(() => {
     ;(async () => {
@@ -168,7 +167,6 @@ export function DesignerPage() {
         const measures = w.config.measures?.length ? w.config.measures : w.config.measure ? [w.config.measure] : []
         if (!w.config.dimension || measures.length === 0) continue
 
-        // Imported dataset widgets (local query)
         if (w.config.dataSource === 'dataset' && w.config.datasetId) {
           const ds = getDatasetById(w.config.datasetId)
           if (!ds) continue
@@ -190,7 +188,6 @@ export function DesignerPage() {
           continue
         }
 
-        // DB-backed widgets
         if (!w.config.connectionId || !w.config.sourceTable) continue
         const filters =
           activeFilter?.kind === 'db' &&
